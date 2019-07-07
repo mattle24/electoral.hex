@@ -1,7 +1,7 @@
 Package: electoral.hex
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.1.0
+Version: 0.0.0
 Author: person(given = "Matt", family = "Lehman", email = "mhlehman24@gmail.com",
                role = "aut")
 Description: This is a package to make it easier to plot data using US state and 
