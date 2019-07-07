@@ -1,0 +1,24 @@
+Package: electoral.hex
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Author: person(given = "Matt", family = "Lehman", email = "mhlehman24@gmail.com",
+               role = "aut")
+Description: This is a package to make it easier to plot data using US state and 
+    Congressional district Tilegram maps (especially from Pitch Interactive[]).
+    This product uses the Census Bureau Data API but is not endorsed or certified
+    by the Census Bureau.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Imports:
+    rlang,
+    magrittr,
+    dplyr,
+    sf,
+    tigris,
+    purrr
+Suggests:
+    ggplot2
+
