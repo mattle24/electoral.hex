@@ -1,4 +1,5 @@
 library(magrittr)
+library(ggplot2)
 library(electoral.hex)
 
 states_bridge <- tibble::tibble(state_abb = state.abb, name = toupper(state.name))
@@ -36,7 +37,7 @@ congress_hex_sf <- congress_hex_sf %>%
   dplyr::left_join(states_bridge, by = c("fips", "name")) %>%
   dplyr::arrange(fips)
 
-congress_hex <- match_districts_usa(congress_hex_sf, wts = "log_area")
+congress_hex <- match_districts_usa(congress_hex_sf, wts = "log_area", iter = 20)
 
 ggplot(congress_hex) +
   geom_sf() +

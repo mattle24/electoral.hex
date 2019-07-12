@@ -74,14 +74,13 @@ match_districts_state <- function(state_fips, hex_centroids,
     return(districts)
   }
 
-    # initialize assignments by using minimizing distance greedily
-  min_dist <- min(D[1, ]) # minimum distance between hex and all districts
-  index <- match(min_dist, D[1, ]) # column index for the district w/ minimum distance
-  used_indicies <- c(index) # keep track of what districts have been assigned
-  for (i in 2L:n_districts) {
-    min_dist <- min(D[i, -used_indicies]) # minimum distance between hex and unassigned districts
-    index <- match(min_dist, D[i, ]) # column index for the district w/ minimum distance
-    used_indicies <- c(used_indicies, index)
+  # initialize assignments by using minimizing distance greedily
+  D_copy <- D # make a copy to play with
+  districts_initial <- c() # to store district assignments
+  for (i in 1L:n_districts) {
+    min_dist_index <- which.min(D_copy[i, ]) # column index for the district w/ minimum distance
+    districts_initial <- c(districts_initial, min_dist_index) # keep track of what districts have been assigned
+    D_copy[ ,min_dist_index] <- NA_real_ # remove this district from further options
   }
 
   # X is the matrix that shoes assignment of hexes to districts
@@ -90,7 +89,7 @@ match_districts_state <- function(state_fips, hex_centroids,
   # Each row and each column should have one and only one `1`
   X <- matrix(0, nrow = n_districts, ncol = n_districts)
   # random_assignment <- sample(n_districts, n_districts)
-  for (r in 1L:n_districts) X[r, used_indicies[r]] <- 1
+  for (r in 1L:n_districts) X[r, districts_initial[r]] <- 1
   wts <- wts %||% rep(1, n_districts) # default weights are 1s for all
   curr_loss <- loss_function(D, X, wts) # loss to beat
   going <- TRUE # should the optimizer keep going?
