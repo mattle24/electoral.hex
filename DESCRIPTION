@@ -21,4 +21,9 @@ Imports:
     purrr
 Suggests:
     ggplot2
-
+Collate: 
+    'state_hex.R'
+    'congress_hex.R'
+    'data.R'
+    'match_congress_hex.R'
+    'standardize_points.R'

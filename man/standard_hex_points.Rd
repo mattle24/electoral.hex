@@ -4,9 +4,12 @@
 \alias{standard_hex_points}
 \title{Standard state hexagon points}
 \usage{
-standard_hex_points(hex_centroids_sf)
+standard_hex_points(hex_centroids)
+}
+\arguments{
+\item{hex_centroids}{sf. An object containing the hexagon centroids.}
 }
 \description{
-Given a simple feature of hexagon centroids, return
-a simple features object with standardized x, y
+Given a simple feature of hexagon centroids for a state, return a simple
+features object with standardized x, y.
 }

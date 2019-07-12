@@ -1,36 +1,42 @@
-
 #' Standard state hexagon points
 #'
-#' Given a simple feature of hexagon centroids, return
-#' a simple features object with standardized x, y
-#' @importFrom magrittr %>%
+#' Given a simple feature of hexagon centroids for a state, return a simple
+#' features object with standardized x, y.
 #'
-standard_hex_points <- function(hex_centroids_sf) {
-  hex_centroids_sf$x <- sf::st_coordinates(hex_centroids_sf)[ ,1]
-  hex_centroids_sf$y <- sf::st_coordinates(hex_centroids_sf)[ ,2]
+#' @param hex_centroids sf. An object containing the hexagon centroids.
+#'
+#' @importFrom magrittr %>%
+standard_hex_points <- function(hex_centroids) {
+  hex_centroids$x <- sf::st_coordinates(hex_centroids)[ ,1]
+  hex_centroids$y <- sf::st_coordinates(hex_centroids)[ ,2]
 
-  x_range_hex <-  sf::st_bbox(hex_centroids_sf)[["xmax"]] - sf::st_bbox(hex_centroids_sf)[["xmin"]]
-  y_range_hex <-  sf::st_bbox(hex_centroids_sf)[["ymax"]] - sf::st_bbox(hex_centroids_sf)[["ymin"]]
+  x_range_hex <-  sf::st_bbox(hex_centroids)[["xmax"]] - sf::st_bbox(hex_centroids)[["xmin"]]
+  y_range_hex <-  sf::st_bbox(hex_centroids)[["ymax"]] - sf::st_bbox(hex_centroids)[["ymin"]]
 
-  hex_centroids_sf$x <- (hex_centroids_sf$x - sf::st_bbox(hex_centroids_sf)[["xmin"]]) / x_range_hex
-  hex_centroids_sf$y <- (hex_centroids_sf$y - sf::st_bbox(hex_centroids_sf)[["ymin"]]) / y_range_hex
+  hex_centroids$x <- (hex_centroids$x - sf::st_bbox(hex_centroids)[["xmin"]]) / x_range_hex
+  hex_centroids$y <- (hex_centroids$y - sf::st_bbox(hex_centroids)[["ymin"]]) / y_range_hex
 
-  hex_centroids_sf
+  hex_centroids
 }
 
-# in a singular state, get the centroid in standardized units by
-# utilizing the bounding box
+#' Standard state points
+#'
+#' Given a simple feature of true centroids for a state, return a simple
+#' features object with standardized x, y.
+#'
+#' @param real_centroids sf. An object containing the true Congressional
+#'   centroids.
 #' @importFrom magrittr %>%
-standard_state_points <- function(cd_sf) {
-  cd_sf$lon <- sf::st_coordinates(cd_sf)[ ,1]
-  cd_sf$lat <- sf::st_coordinates(cd_sf)[ ,2]
+standard_state_points <- function(real_centroids) {
+  real_centroids$lon <- sf::st_coordinates(real_centroids)[ ,1]
+  real_centroids$lat <- sf::st_coordinates(real_centroids)[ ,2]
 
   # get the range of X values and Y values for standardizing
-  x_range <-  max(cd_sf$lon) - min(cd_sf$lon)
-  y_range <-  max(cd_sf$lat) - min(cd_sf$lat)
+  x_range <-  max(real_centroids$lon) - min(real_centroids$lon)
+  y_range <-  max(real_centroids$lat) - min(real_centroids$lat)
 
-  cd_sf$x <- (cd_sf$lon - min(cd_sf$lon)) / x_range
-  cd_sf$y <- (cd_sf$lat - min(cd_sf$lat)) / y_range
+  real_centroids$x <- (real_centroids$lon - min(real_centroids$lon)) / x_range
+  real_centroids$y <- (real_centroids$lat - min(real_centroids$lat)) / y_range
 
-  cd_sf
+  real_centroids
 }

@@ -7,5 +7,5 @@
 compare_plot(real_pts, hex_pts)
 }
 \description{
-Description
+Compare plot
 }

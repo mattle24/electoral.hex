@@ -7,6 +7,31 @@
 match_districts_state(real_centroids, hex_centroids, iter = 10,
   wts = NULL, compare = FALSE)
 }
+\arguments{
+\item{real_centroids}{sf. An object with true Congressional district
+geographies where the geography is centroids.}
+
+\item{hex_centroids}{sf. An object with hexagon Congressional district
+geographies where the geography is centroids.}
+
+\item{iter}{numeric. An integer with the maximum number of iterations of
+optimization to preform. Default is 10.}
+
+\item{wts}{numeric. A vector the same length as `real_centroids` and
+`hex_centroids` with weights for the loss function. Default is `NULL` (no
+weights).}
+
+\item{compare}{boolean. Whether or not to print a plot showing the real
+centroids and the hexagon centroids on a standardized scale. Good for
+checking if the assigned districts are correct. Default is FALSE.}
+}
+\value{
+A vector with the district assignments in the same order as
+  `hex_centroids`.
+}
 \description{
-Description
+For one state, given a dataset of centroids for the true Congressional
+districts and a dataset of centroids for hexagon Congressional districts,
+assign the hexagon districts to closely mirror the real geography of the
+state's districts.
 }

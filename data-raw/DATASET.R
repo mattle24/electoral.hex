@@ -21,6 +21,15 @@ congress_hex_sf <- sf::st_read("C:/Users/Matt_2/Downloads/tiles.topo.json",
                                     stringsAsFactors = FALSE)
 congress_hex_sf <- sf::st_cast(congress_hex_sf, "POLYGON")
 
+tn_correction <- sf::st_read("C:/Users/Matt_2/Downloads/tiles.topo_tn.json",
+                               stringsAsFactors = FALSE)
+tn_correction <- sf::st_cast(tn_correction, "POLYGON") %>%
+  dplyr::filter(id == 47)
+
+congress_hex_sf <- congress_hex_sf %>%
+  dplyr::filter(id != 47) %>%
+  rbind(tn_correction)
+
 congress_hex_sf <- congress_hex_sf %>%
   dplyr::select(fips = id, name) %>%
   dplyr::mutate(fips = as.numeric(fips)) %>%
@@ -33,6 +42,12 @@ ggplot(congress_hex) +
   geom_sf() +
   geom_sf_text(aes(label = district))
 
+
+ny_centroids <- congress_hex_sf %>%
+  dplyr::filter(fips == 36) %>%
+  sf::st_centroid()
+
+match_districts_state(state_fips = 36, hex_centroids = ny_centroids, wts = "log_area", compare = TRUE)
 # download congressional district simple features from tigris (US Census)
 real_cd_centroids_sf <- tigris::congressional_districts(class = "sf") %>%
   sf::st_centroid()

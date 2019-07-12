@@ -7,6 +7,23 @@
 hex_cd_join(x, district_key, state_key = NULL,
   state_key_type = c("state_abb", "name", "fips"))
 }
+\arguments{
+\item{x}{A dataframe like or ggplot object with state-level data}
+
+\item{district_key}{character. The name of the column in `x` with the
+district number}
+
+\item{state_key}{characer. The name of the colum in `x` with the state
+identifier}
+
+\item{state_key_type}{character. The type of state key. Either "state_abb",
+"name", or "fips".}
+}
+\value{
+An object of the type class as `x` with attached simple features for
+  Congressional hexagons.
+}
 \description{
-Description
+Takes a dataframe or plot with Congressional data and matches the data to a
+simple features object with the package Congressional hexagon data.
 }

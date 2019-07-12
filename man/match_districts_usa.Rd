@@ -4,9 +4,33 @@
 \alias{match_districts_usa}
 \title{Match districts usa}
 \usage{
-match_districts_usa(congress_hex_sf, fips_key = "fips", iter = 10,
-  wts = NULL)
+match_districts_usa(congress_hex, fips_key = "fips", iter = 10,
+  wts = NULL, compare = FALSE)
+}
+\arguments{
+\item{congress_hex}{sf. An object with geometries for Congressional hexagons.
+Geometries are polygons.}
+
+\item{fips_key}{character. The name of the field in `congress_hex` which has
+state fips codes. Default is "fips".}
+
+\item{iter}{numeric. An integer with the maximum number of iterations of
+optimization to preform. Default is 10.}
+
+\item{wts}{character. Weights to use for optimization. For now, either
+"log_area" or NULL.}
+
+\item{compare}{boolean. Whether or not to print a plot showing the real
+centroids and the hexagon centroids on a standardized scale. Good for
+checking if the assigned districts are correct. Default is FALSE.}
+}
+\value{
+Returns the `congress_hex` object given as an argument with a field
+  for assigned district number.
 }
 \description{
-Description
+For any number of states, given a dataset of centroids for the true
+Congressional districts and a dataset of centroids for hexagon Congressional
+districts, assign the hexagon districts to closely mirror the real geography
+of the state's districts.
 }

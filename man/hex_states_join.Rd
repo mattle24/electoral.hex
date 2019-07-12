@@ -4,9 +4,23 @@
 \alias{hex_states_join}
 \title{Hex states join}
 \usage{
-hex_states_join(x, key = NULL, key_type = c("state_abb", "name",
-  "fips"))
+hex_states_join(x, state_key = NULL, state_key_type = c("state_abb",
+  "name", "fips"))
+}
+\arguments{
+\item{x}{A dataframe like or ggplot object with state-level data}
+
+\item{state_key}{characer. The name of the colum in `x` with the state
+identifier}
+
+\item{state_key_type}{character. The type of state key. Either "state_abb",
+"name", or "fips".}
+}
+\value{
+An object of the type class as `x` with attached simple features for
+  state hexagons.
 }
 \description{
-Description
+Takes a dataframe or plot with state data and matches the data to a
+simple features object with the package state hexagon data.
 }
