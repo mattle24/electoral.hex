@@ -31,17 +31,18 @@ ggplot(data = dw_senate) %>%
 
 dw_house <- politicaldata::get_house_nominate(116)
 
+plot_hex_cd <- hex_cd_join(dw_house, district_key = "district_code", state_key = "state_abbrev",
+                           state_key_type = "state_abb")
+
+ggplot(data = plot_hex_cd) +
+  geom_sf(aes(fill = nominate_dim1)) +
+  coord_sf(datum = NA) +
+  scale_fill_gradient2(low = "darkblue", high = "darkred", name = "DW-Nominate")
+
 ggplot(data = dw_house) %>%
   hex_cd_join(district_key = "district_code", state_key = "state_abbrev", state_key_type = "state_abb") +
   geom_sf(aes(fill = nominate_dim1)) +
   coord_sf(datum = NA) +
-  geom_sf_text(aes(label = ifelse(sum(district) == 1, state_abb, ""), group = state_abb)) +
   scale_fill_gradient2(low = "darkblue", high = "darkred", name = "DW-Nominate")
 
-ggplot(data = dw_house %>% dplyr::filter(state_abbrev == "NY")) %>%
-  hex_cd_join(district_key = "district_code", state_key = "state_abbrev", state_key_type = "state_abb") +
-  geom_sf(aes(fill = nominate_dim1)) +
-  coord_sf(datum = NA) +
-  geom_sf_text(aes(label = district)) +
-  scale_fill_gradient2(low = "darkblue", high = "darkred", name = "DW-Nominate")
 

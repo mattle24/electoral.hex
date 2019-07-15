@@ -18,8 +18,8 @@ hex_states_join <- function(x, state_key = NULL, state_key_type = c("state_abb",
   join_key <- setNames(nm = state_key_type, state_key)
   if (any(class(x) == "gg")) {
     x$data <- electoral.hex::states_hex %>%
-      dplyr::select(!!state_key_type) %>%
-      dplyr::right_join(x$data, by = join_key)%>%
+      dplyr::select(!!state_key_type) %>% # to eliminate unwanted columns
+      dplyr::right_join(x$data, by = join_key) %>%
       dplyr::rename(!!state_key := !!state_key_type)
 
     if (nrow(x$data) != 50) rlang::warn(paste0("Plotting ", nrow(x$data), " observations."))
